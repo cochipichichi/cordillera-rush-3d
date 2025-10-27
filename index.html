@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cordillera Rush 3D — Runner</title>
+  <meta name="theme-color" content="#0a0f16">
+  <link rel="icon" href="assets/favicon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="description" content="Runner 3D estilo cordillera: esquiva rocas y grietas. Hecho con Three.js.">
+  <style>
+    :root{--ink:#eaf2ff;--muted:#a9bed7;--brand:#79d0ff}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:#0a0f16;color:var(--ink);font-family:system-ui,Segoe UI,Roboto,Ubuntu,sans-serif;overflow:hidden}
+    header{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:linear-gradient(180deg,#0b1320,#0a0f1600);z-index:3}
+    header h1{font-size:16px;margin:0;opacity:.9}
+    #hud{position:fixed;top:38px;left:0;right:0;display:flex;justify-content:space-between;padding:8px 12px;z-index:3;pointer-events:none}
+    .pill{background:#0c1726aa;border:1px solid #1e2b3f;color:#eaf2ff;padding:6px 10px;border-radius:12px;backdrop-filter: blur(4px);}
+    .controls{position:fixed;bottom:10px;left:0;right:0;display:flex;gap:8px;justify-content:center;z-index:3}
+    .btn{background:#0c1726;border:1px solid #22354d;color:#eaf2ff;padding:8px 12px;border-radius:10px;cursor:pointer}
+    .btn:hover{border-color:#79d0ff}
+    #overlay{position:fixed;inset:0;display:grid;place-items:center;background:linear-gradient(180deg,#0a0f1688,#0a0f1600);z-index:4}
+    .card{background:#0c1726;border:1px solid #22354d;border-radius:16px;padding:16px;max-width:min(90vw,520px);box-shadow:0 10px 30px #000a}
+    .title{display:flex;align-items:center;gap:8px}
+    .title img{width:28px;height:28px}
+    .options{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .small{font-size:12px;color:var(--muted)}
+    canvas{display:block}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🏔️ Cordillera Rush 3D</h1>
+    <div>
+      <button id="btnPause" class="btn">⏸️ Pausa</button>
+      <button id="btnRestart" class="btn">🔄 Reiniciar</button>
+    </div>
+  </header>
+
+  <div id="hud">
+    <div class="pill">Puntaje: <span id="score">0</span></div>
+    <div class="pill">Velocidad: <span id="speed">0</span></div>
+  </div>
+
+  <div id="overlay">
+    <div class="card">
+      <div class="title"><img src="assets/favicon.png" alt=""><h2 style="margin:0">Cordillera Rush 3D</h2></div>
+      <p>Corre por la cresta nevada, cambia de carril y esquiva rocas/grietas. ¡Llega lo más lejos posible!</p>
+      <ul class="small">
+        <li><b>PC:</b> Flechas o A/D para moverte · W/↑ para saltar</li>
+        <li><b>Móvil:</b> desliza izquierda/derecha para cambiar de carril · tap rápido para saltar</li>
+      </ul>
+      <div class="options">
+        <label class="pill">Dificultad: 
+          <select id="difficulty" style="background:transparent;color:inherit;border:none;outline:none">
+            <option value="easy">Fácil</option>
+            <option value="normal" selected>Normal</option>
+            <option value="hard">Difícil</option>
+          </select>
+        </label>
+        <label class="pill"><input id="music" type="checkbox" checked> Música</label>
+        <label class="pill"><input id="sfx" type="checkbox" checked> SFX</label>
+      </div>
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
+        <button id="btnPlay" class="btn">▶ Jugar</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="../src/main.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+  </script>
+</body>
+</html>
